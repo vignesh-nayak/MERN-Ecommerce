@@ -15,7 +15,7 @@ MongoDB Atlas - Database
 For Client/Frontend  
 `cd .\MERN-Ecommerce\ecommerce_client`  
 `yarn install`  
-`yarn start`
+`yarn dev`
 
 For Server/Backend  
 `cd .\MERN-Ecommerce\ecommerce_server`  
