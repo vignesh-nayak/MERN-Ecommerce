@@ -1,8 +1,10 @@
+const { uploadSingleToCloudinary } = require('../middleware');
 const Product = require('../models/productModel');
 
 const createNewProduct = async (req, res) => {
     try {
-        const { productName, productDescription, productImage, productPrice, productAvaiableStock = 0 } = req.body;
+        const { productName, productDescription, productPrice, productAvaiableStock = 0 } = req.body;
+        const productImage = await uploadSingleToCloudinary(req.file);
 
         if (!productName || !productDescription || !productImage || !productPrice) {
             res.send({
@@ -27,7 +29,7 @@ const createNewProduct = async (req, res) => {
                 statusCode: 200
             }))
             .catch(error => res.send({
-                error: `error while adding ${productObject.name}, Error: ${error}`,
+                error: `error while adding ${productObject.name}, error: ${error}`,
                 statusCode: 500
             }))
 
@@ -40,8 +42,6 @@ const createNewProduct = async (req, res) => {
 const getProductById = async (req, res) => {
     try {
         const id = req.params.id;
-        console.log(id)
-        console.log(req.params)
         const product = await Product.findOne({ _id: id });
 
         if (product === null) {
@@ -124,11 +124,11 @@ const deleteProduct = async (req, res) => {
 
 const searchProduct = async (req, res) => {
     try {
-        const query = req.body.string;
+        const query = req.params.string;
         const products = await Product.find({
             $or: [
                 { "name": { '$regex': query } },
-                { "description": { '$regex': query } },
+                // { "description": { '$regex': query } },
             ]
         });
 

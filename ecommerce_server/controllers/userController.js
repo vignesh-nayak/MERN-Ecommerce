@@ -17,7 +17,7 @@ const createNewUser = async (req, res) => {
         const user = await User.findOne({ email: userEmail });
         if (user) {
             res.send({
-                error: 'User alreaady exist.',
+                error: 'User already exist.',
                 statusCode: 400
             })
             return;
@@ -40,7 +40,7 @@ const createNewUser = async (req, res) => {
                 statusCode: 200
             }))
             .catch(error => res.send({
-                error: `error while adding ${userObject.email}, Error: ${error}`,
+                error: `error while adding ${userObject.email}, error: ${error}`,
                 statusCode: 500
             }))
 
@@ -79,7 +79,9 @@ const getUser = async (req, res) => {
 
         const user = await User.findOne({ email: userEmail }).select('-createdAt,-updatedAt'); // not sure
 
-        if (user && user.matchPassword(userPassword)) {
+        const isPasswordMatching = await bcrypt.compare(userPassword, user.password);
+
+        if (isPasswordMatching) {
             res.send({ user: user, statusCode: 200 });
             return;
         }
@@ -239,25 +241,35 @@ const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        const user = User.find({ email });
+        const user = await User.findOne({ email });
 
-        if (user && await user.matchPassword(password)) {
-            user.token = helper.generateToken(user_id);
-            res.send({ user, statusCode: 200 });
+        const isPasswordMatching = await bcrypt.compare(password, user.password);
+
+        if (isPasswordMatching) {
+            const userObject = {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                isAdmin: user.isAdmin,
+                token: helper.generateToken(user._id),
+            }
+            res.send({ user: userObject, statusCode: 200 });
         }
         else {
             res.send({ message: 'Invalid credentials.', statusCode: 400 });
         }
     } catch (error) {
-        res.send({ Error: error, statusCode: 500 });
+        res.send({ error: error, statusCode: 500 });
     }
 }
 
-const forgotPassword = async (req, res) => {
+const changePassword = async (req, res) => {
     res.send({ message: 'not build yet.' })
 }
 // except one user and admin
-// const deleteAllUsers = async (req, res) => { }
+const deleteAllUsers = async (req, res) => {
+    res.send({ message: 'not build yet.' })
+}
 
 module.exports = {
     createNewUser,
@@ -269,6 +281,7 @@ module.exports = {
     deleteUser,
     searchUser,
     login,
-    forgotPassword,
-    getUserById
+    changePassword,
+    getUserById,
+    deleteAllUsers
 }

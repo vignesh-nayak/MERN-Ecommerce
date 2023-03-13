@@ -1,0 +1,46 @@
+html,
+body {
+  width: 99%;
+  height: 99%;
+}
+
+body {
+  background-color: #61777f;
+  color: #ffffff;
+}
+
+.text-white {
+  color: #f0ffffff;
+}
+
+.text-red {
+  color: #ff0101;
+}
+
+.text-grey {
+  color: #433f3f;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.border-top {
+  border-top: 0.2vw solid black;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.text-captialize {
+  text-transform: capitalize;
+}
+
+.bg-green {
+  background-color: #c2ff67;
+}
+
+.bg-red {
+  background-color: #fd4646;
+}

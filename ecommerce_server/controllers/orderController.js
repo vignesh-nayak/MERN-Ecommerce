@@ -2,16 +2,16 @@ const Order = require('../models/orderModel');
 
 const createNewOrder = async (req, res) => {
     try {
-        // otherinfo like address, payment, price etc
-        const { user, orderedItems, otherInfo } = req.body;
+        const { user, orderedItems, otherInfo } = req.body.orderInfo;
 
-        if (orderedItems.length === 0) {
+        if (orderedItems && orderedItems.length === 0) {
             res.json({
                 message: 'No items in list',
                 statusCode: 400
             })
             return
         }
+
 
         const orderObject = {
             user,
@@ -29,11 +29,12 @@ const createNewOrder = async (req, res) => {
         await Order.create(orderObject)
             .then(data => res.send({
                 message: `Order added for ${user}`,
-                data: data,
+                order: data,
                 statusCode: 200
             }))
             .catch(error => res.send({
-                error: `error while adding order for ${user}, Error: ${error}`,
+                message: `error while adding order for ${user}`,
+                error: error,
                 statusCode: 500
             }))
 
@@ -47,15 +48,15 @@ const createNewOrder = async (req, res) => {
 
 const getOrdersOfUser = async (req, res) => {
     try {
-        const id = req.body.id;
+        const id = req.params.userId;
 
-        const order = await Product.findOne({ _id: id });
+        const orders = await Order.find({ user: id });
 
-        if (order === null) {
-            res.send({ message: `order-${id} not found`, statusCode: 400 });
+        if (orders.length === 0) {
+            res.send({ message: `orders not found for user`, statusCode: 400 });
             return;
         }
-        res.send({ order: order, statusCode: 200 });
+        res.send({ orders: orders, statusCode: 200 });
     }
     catch (e) {
         res.send({
@@ -71,7 +72,7 @@ const getOrderbyId = async (req, res) => {
     try {
         const id = req.params.id;
 
-        const order = await Product.findOne({ _id: id });
+        const order = await Order.findOne({ _id: id });
 
         if (order === null) {
             res.send({ message: `order-${id} not found`, statusCode: 400 });
@@ -92,7 +93,7 @@ const getAllOrders = async (req, res) => {
         const orders = await Order.find({});
 
         if (orders.length === 0) {
-            res.send({ message: `No product not found`, statusCode: 200 });
+            res.send({ message: `No orders not found`, statusCode: 200 });
             return;
         }
 
@@ -114,7 +115,7 @@ const searchOrder = async (req, res) => {
         });
 
         if (orders.length === 0) {
-            res.send({ message: `No product not found`, statusCode: 200 });
+            res.send({ message: `No orders not found`, statusCode: 200 });
             return;
         }
 

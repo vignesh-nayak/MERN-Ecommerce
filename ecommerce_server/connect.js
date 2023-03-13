@@ -5,9 +5,9 @@ const connectMongoDB = async () => {
     mongoose.set('strictQuery', true);
     try {
         const connection = await mongoose.connect(process.env.MONGO_URI)
-        console.log(`connected ${connection.connection.host}`);
+        if (process.env.NODE_ENV === 'development') console.log(`connected ${connection.connection.host}`);
     } catch (error) {
-        console.log(`error:${error}`);
+        if (process.env.NODE_ENV === 'development') console.log(`error:${error}`);
         process.exit();
     }
 }

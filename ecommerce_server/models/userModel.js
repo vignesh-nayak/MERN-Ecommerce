@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require("bcrypt");
 
-// add default shippping address.
-
 const userSchema = new mongoose.Schema(
     {
         name: { type: String, required: true },
@@ -15,10 +13,6 @@ const userSchema = new mongoose.Schema(
         timestamps: true
     }
 )
-
-userSchema.method.matchPassword = async (userPassword) => {
-    return await bcrypt.compare(userPassword, this.password);
-}
 
 const User = mongoose.model('User', userSchema);
 

@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 // add product category
-
 const reviewSchema = new mongoose.Schema(
     {
         name: { type: String, required: true },
@@ -19,8 +18,8 @@ const productSchema = new mongoose.Schema(
     {
         name: { type: String, required: true },
         description: { type: String, required: true },
-        image: { type: String, required: true, default: 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.shutterstock.com%2Fimage-vector%2F3d-high-quality-vector-mobile-260nw-2121419597.jpg&imgrefurl=https%3A%2F%2Fwww.shutterstock.com%2Fsearch%2Fmobile-phone&tbnid=m-IhYvbc2YuU1M&vet=12ahUKEwi22uT_5KX9AhWUmtgFHddsC20QMygFegUIARDpAQ..i&docid=AwUWvSYftfWHUM&w=325&h=280&q=phone%20photo&ved=2ahUKEwi22uT_5KX9AhWUmtgFHddsC20QMygFegUIARDpAQ' },
-        price: { type: Number, required: true },
+        image: { type: String, required: true, default: 'https://res.cloudinary.com/dxqzbpcjt/image/upload/v1678547605/cld-sample-5.jpg' },
+        price: { type: Number, required: true, default: 0 },
         avaiableStock: { type: Number, required: true, default: 0 },
         totalRating: { type: Number, required: true, default: 0 },
         rating: { type: Number, required: true, default: 0 },
