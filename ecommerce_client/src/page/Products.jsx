@@ -21,10 +21,6 @@ const Products = () => {
     dispatch(getAllProducts(searchStr))
   }, [dispatch, searchStr])
     
-  useEffect(() => {
-    alert('Currently, this site is not suitable for small devices, and will make it responsive so.');
-  }, [])
-
   return (
     <div className='main'>
       <Navbar searchFunction={searchFunction}/>

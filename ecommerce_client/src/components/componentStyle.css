@@ -49,6 +49,68 @@
   border-radius: 0.5vw;
   padding: 0.2vh 0.2vw;
 }
+
+.menu-toggle {
+  display: none;
+}
+
+.img-res {
+  display: none;
+}
+
+@media only screen and (max-width: 1100px) {
+  .menu-toggle {
+    display: inline;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+  }
+
+  .navbar {
+    flex-direction: column-reverse;
+    align-items: center;
+    height: fit-content;
+  }
+
+  .img,
+  .menu {
+    display: none;
+  }
+
+  .menu-icon,
+  .canccel-icon {
+    height: 5vh;
+  }
+
+  .menu-res {
+    position: fixed;
+    top: -1.5vh;
+    font-weight: 600;
+    font-size: 1.5rem;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background: hsl(0, 0%, 100% /0.1);
+    backdrop-filter: blur(1rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .menu-res ul {
+    padding: 0;
+  }
+
+  .menu-res a {
+    text-decoration: none;
+    list-style: none;
+  }
+
+  .menu-res a li {
+    margin: 2vh auto;
+    width: fit-content;
+  }
+}
 /* navbar */
 /* **********************************************************************************************************************************/
 /* footer */
@@ -76,6 +138,13 @@
   background-color: #ffffff;
 }
 
+@media only screen and (max-width: 500px) {
+  .footer {
+    flex-direction: column;
+    gap: 2vh;
+    text-align: center;
+  }
+}
 /* footer */
 /* **********************************************************************************************************************************/
 /* Dropdown */

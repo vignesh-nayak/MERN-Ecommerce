@@ -127,7 +127,7 @@ const searchProduct = async (req, res) => {
         const query = req.params.string;
         const products = await Product.find({
             $or: [
-                { "name": { '$regex': query } },
+                { "name": { '$regex': query.toLowerCase() } },
                 // { "description": { '$regex': query } },
             ]
         });
