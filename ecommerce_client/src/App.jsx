@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './page/pageStyle.css';
+import 'react-toastify/dist/ReactToastify.css';
 import Products from './page/Products';
 import Product from './page/Product';
 import NotFound from './page/NotFound';
@@ -14,7 +15,6 @@ import Order from './page/Order';
 import Logout from './page/Logout';
 import PrivateRoute from './components/PrivateRoute';
 
-// use react-toastify
 function App() {
   
   return (

@@ -5,10 +5,21 @@ import Footer from "../components/Footer";
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
 import { login } from '../redux/actions/actionUser';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const notify = () => toast.error("Invalid credentials", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    });
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -20,7 +31,7 @@ const Login = () => {
         setEmail('');
         setPassword('');
         if(userInfo) navigate('/profile');
-        else alert('Invalid credentials');
+        else notify();
     }
 
     
@@ -50,6 +61,7 @@ const Login = () => {
             </label>
         </div >
       <Footer/>
+        <ToastContainer />
     </div>
   )
 }

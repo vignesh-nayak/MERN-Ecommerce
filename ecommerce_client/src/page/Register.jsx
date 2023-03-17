@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import { Link  } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../redux/actions/actionUser';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Register = () => {
     const dispatch = useDispatch();
@@ -13,6 +14,26 @@ const Register = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const notifySuccess = () => toast.success(`User ${user.name} created.`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    });
+    const notifyError = () => toast.error(`User ${email} exist.`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    });
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -25,10 +46,10 @@ const Register = () => {
             setName('');
             setEmail('');
             setPassword('');
-            alert(`User ${user.name} created.`);
+            notifySuccess();
         }
         if(error?.statusCode === 400) {
-            alert(`User ${email} exist.`);
+            notifyError();
             setPassword('');
 
         }
@@ -61,6 +82,7 @@ const Register = () => {
             </label>
         </div>
       <Footer/>
+      <ToastContainer />
     </div>
   )
 }

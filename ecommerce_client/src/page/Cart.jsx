@@ -75,7 +75,7 @@ const Cart = () => {
               ))  
             }
             <div className='cartTotal'>Total: <span className='spanValue'>{sumTotalAmount}</span></div>
-            <Link to="/placeOrder" state={{ total: sumTotalAmount }} className='button placeOrderButton'>Continue...</Link>
+            <Link to="/placeOrder" state={{ total: sumTotalAmount }} className='button placeOrderButton'>Next</Link>
           </div>
           :
           <div className='noProductFound text-center'>
