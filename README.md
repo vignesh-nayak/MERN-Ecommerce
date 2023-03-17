@@ -23,3 +23,9 @@ For Server/Backend
 `yarn dev`
 
 - add .env file in each folder and add environment variables in respective files.
+
+## future plan
+
+- basic responsiveness for mobile.
+- add admin with basic functionalities.
+- update all the functionalities and add rest of the planned functionalities.

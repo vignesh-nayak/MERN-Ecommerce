@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import { useDispatch, useSelector } from 'react-redux';
 import { getProduct } from '../redux/actions/actionProduct';
 import { addItem } from '../redux/actions/actionCart';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const Product = () => {
   window.scrollTo(0,0);
@@ -15,8 +15,7 @@ const Product = () => {
   const { id }= useParams();
   const [qty, setQty] = useState(1);
 
-  // const { product, loading, error } = productDetails;
-  const { product } = productDetails;
+  const { product, loading, error } = productDetails;
 
   const handleQuantity = (e) =>{
     e.preventDefault();
@@ -37,52 +36,67 @@ const Product = () => {
   return (
     <div className='main'>
       <Navbar/>
-      <div className='productAllDetails'>
-        <div className='productDetails'>
-            <img src={product?.image} alt="No images Found" className='productImg'/>
-            <div className='productSubDetails'>
-                <div className='productName'>Name: { product?.name }</div>
-                <div className='productDescription'>Description: { product?.description }</div>
-                <div className='productReview'>Rating: { product?.rating } Star</div>
-                <div className='productPrice'>Price: { product?.price }</div>
-                <div className='productQuantity'>
-                    Quantity: 
-                    {
-                      product?.avaiableStock > 0
+      {
+        loading ? 
+            <div>Loading...</div> 
+            :
+            error ? 
+            <div className='noProductFound text-center'>
+              <div>
+                Some went wrong,
+              </div>
+             <Link className='text-white' to={'/login'}>
+               login again 
+            </Link>
+            </div>
+            :
+            <div className='productAllDetails'>
+              <div className='productDetails'>
+                  <img src={product?.image} alt="No images Found" className='productImg'/>
+                  <div className='productSubDetails'>
+                      <div className='productName'>Name: { product?.name }</div>
+                      <div className='productDescription'>Description: { product?.description }</div>
+                      <div className='productReview'>Rating: { product?.rating } Star</div>
+                      <div className='productPrice'>Price: { product?.price }</div>
+                      <div className='productQuantity'>
+                          Quantity: 
+                          {
+                            product?.avaiableStock > 0
+                            ?
+                            <div className='productSubQuanity'>
+                              <button className='quantityButtons' onClick={(e) => handleQuantity(e)}>-</button>
+                              <div className={`quantity ${product?.avaiableStock === qty ? 'text-red' : ''}`}> {qty} </div>
+                              <button className='quantityButtons' onClick={(e) => handleQuantity(e)}>+</button>
+                          </div>
+                          :
+                          <div className='productSubQuanity text-red'>
+                            Out of Stock
+                        </div> 
+                          }
+                      </div>
+                      <button className='button' hidden={!product?.avaiableStock > 0} onClick={(e) => addToCart(e)}>{!userInfo ? 'Login for add to cart...' : 'Add to Cart...'}</button>
+                  </div>
+              </div>
+              <div className='writeReview'>
+                  <h1>Add your review</h1>
+                  <div className='stars'>
+                      stars - add icons
+                  </div>
+                  <textarea placeholder='Add comment for review...' className='reviewInput' disabled={true}/>
+              </div>
+              <div className='showReview'>
+                  <h1>Reviews</h1>
+                  {
+                      product?.numberReviews === 0 
                       ?
-                      <div className='productSubQuanity'>
-                        <button className='quantityButtons' onClick={(e) => handleQuantity(e)}>-</button>
-                        <div className={`quantity ${product?.avaiableStock === qty ? 'text-red' : ''}`}> {qty} </div>
-                        <button className='quantityButtons' onClick={(e) => handleQuantity(e)}>+</button>
-                    </div>
-                    :
-                    <div className='productSubQuanity text-red'>
-                      Out of Stock
-                  </div> 
-                    }
-                </div>
-                <button className='button' hidden={!product?.avaiableStock > 0} onClick={(e) => addToCart(e)}>{!userInfo ? 'Login for add to cart...' : 'Add to Cart...'}</button>
+                      <div className='reviewsFontSize'>No Reviews found for this product.</div>
+                      :
+                      <div>{product?.numReviews}</div>
+                  }
+                  
+              </div>
             </div>
-        </div>
-        <div className='writeReview'>
-            <h1>Add your review</h1>
-            <div className='stars'>
-                stars - add icons
-            </div>
-            <textarea placeholder='Add comment for review...' className='reviewInput' disabled={true}/>
-        </div>
-        <div className='showReview'>
-            <h1>Reviews</h1>
-            {
-                product?.numberReviews === 0 
-                ?
-                <div className='reviewsFontSize'>No Reviews found for this product.</div>
-                :
-                <div>{product?.numReviews}</div>
-            }
-            
-        </div>
-      </div>
+      }
       <Footer/>
     </div>
   )
