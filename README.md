@@ -14,18 +14,18 @@ MongoDB Atlas - Database
 
 For Client/Frontend  
 `cd .\MERN-Ecommerce\ecommerce_client`  
-`yarn install`  
-`yarn dev`
+`npm install`  
+`npm run dev`
 
 For Server/Backend  
 `cd .\MERN-Ecommerce\ecommerce_server`  
-`yarn install`  
-`yarn dev`
+`npm install`  
+`node server.js`
 
 - add .env file in each folder and add environment variables in respective files.
 
 ## future plan
 
-- basic responsiveness for mobile.
+- basic responsiveness for mobile.done
 - add admin with basic functionalities.
 - update all the functionalities and add rest of the planned functionalities.

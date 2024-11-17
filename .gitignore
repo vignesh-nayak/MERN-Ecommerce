@@ -1,0 +1,4 @@
+ecommerce_client/node_modules
+ecommerce_server/node_modules
+ecommerce_client/.env
+ecommerce_server/.env
